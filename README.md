@@ -12,6 +12,8 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+Alternativey, open [https://task-management-amrit.vercel.app/](https://task-management-amrit.vercel.app/) to use the application directly on your web browser.
+
 ## Sorting approach used:
 
 Sorting function is written in `utils.js`
