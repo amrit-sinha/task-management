@@ -1,5 +1,5 @@
 "use client";
-import React, { useReducer, useState, useMemo } from "react";
+import React, { useReducer, useState, useMemo, useEffect } from "react";
 import TaskForm from "./TaskForm";
 import TaskItem from "./TaskItem";
 import Modal from "./Modal";
@@ -7,10 +7,26 @@ import { taskReducer, ACTIONS } from "../reducers/taskReducer";
 
 const TaskList = ({ initialTasks }) => {
   const [tasks, dispatch] = useReducer(taskReducer, initialTasks);
+  const [isClient, setIsClient] = useState(false);
+
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [editingTask, setEditingTask] = useState(null);
   const [deletingTask, setDeletingTask] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
+
+  useEffect(() => {
+    setIsClient(true);
+    const storedTasks = localStorage.getItem("tasks");
+    if (storedTasks) {
+      dispatch({ type: "INITIALIZE", payload: JSON.parse(storedTasks) });
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isClient) {
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+    }
+  }, [tasks, isClient]);
 
   const handleAddTask = (newTask) => {
     dispatch({
