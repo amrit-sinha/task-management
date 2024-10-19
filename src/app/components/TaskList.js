@@ -14,6 +14,10 @@ const TaskList = ({ initialTasks }) => {
   const [deletingTask, setDeletingTask] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
 
+  /**
+   * Initialize application state by retrieving stored tasks from local storage.
+   * Runs only once when the component mounts.
+   */
   useEffect(() => {
     setIsClient(true);
     const storedTasks = localStorage.getItem("tasks");
@@ -22,6 +26,10 @@ const TaskList = ({ initialTasks }) => {
     }
   }, []);
 
+  /**
+   * Synchronizes tasks state with local storage.
+   * Updates local storage whenever tasks or isClient changes.
+   */
   useEffect(() => {
     if (isClient) {
       localStorage.setItem("tasks", JSON.stringify(tasks));
