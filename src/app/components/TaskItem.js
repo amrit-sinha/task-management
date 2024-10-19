@@ -21,10 +21,18 @@ const TaskItem = ({ task, onEdit, onUpdate, onDelete }) => {
           <span className="priority-badge">Priority: {task.priority}</span>
         </div>
         <div className="task-actions">
-          <button onClick={onEdit} className="btn btn-edit">
+          <button
+            onClick={onEdit}
+            className="btn btn-edit"
+            disabled={task.completed}
+          >
             Edit
           </button>
-          <button onClick={onDelete} className="btn btn-delete">
+          <button
+            onClick={onDelete}
+            className="btn btn-delete"
+            disabled={task.completed}
+          >
             Delete
           </button>
         </div>

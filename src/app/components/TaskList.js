@@ -118,38 +118,40 @@ const TaskList = ({ initialTasks }) => {
         title="Are you sure?"
       >
         {deletingTask && (
-          <>
-            <div>
-              <button
-                onClick={() => handleDeleteTask(deletingTask.id)}
-                className="btn btn-delete"
-              >
-                Yes
-              </button>
-              <button
-                onClick={() => setDeletingTask(null)}
-                className="btn btn-edit"
-              >
-                No
-              </button>
-            </div>
-          </>
+          <div className="task-actions">
+            <button
+              onClick={() => handleDeleteTask(deletingTask.id)}
+              className="btn btn-delete"
+            >
+              Yes
+            </button>
+            <button
+              onClick={() => setDeletingTask(null)}
+              className="btn btn-edit"
+            >
+              No
+            </button>
+          </div>
         )}
       </Modal>
 
       <div className="task-list">
-        {filteredTasks.map((task) => (
-          <TaskItem
-            key={task.id}
-            task={task}
-            onEdit={() => setEditingTask(task)}
-            onUpdate={(id, updates) => handleUpdateTask(id, updates)}
-            onDelete={() => setDeletingTask(task)}
-            onToggleComplete={(completed) =>
-              handleToggleComplete(task.id, completed)
-            }
-          />
-        ))}
+        {!!filteredTasks.length ? (
+          filteredTasks.map((task) => (
+            <TaskItem
+              key={task.id}
+              task={task}
+              onEdit={() => setEditingTask(task)}
+              onUpdate={(id, updates) => handleUpdateTask(id, updates)}
+              onDelete={() => setDeletingTask(task)}
+              onToggleComplete={(completed) =>
+                handleToggleComplete(task.id, completed)
+              }
+            />
+          ))
+        ) : (
+          <h2>No Task Found...</h2>
+        )}
       </div>
     </div>
   );
