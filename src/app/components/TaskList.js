@@ -1,6 +1,5 @@
 "use client";
-
-import { useReducer, useState } from "react";
+import React, { useReducer, useState, useMemo } from "react";
 import TaskForm from "./TaskForm";
 import TaskItem from "./TaskItem";
 import Modal from "./Modal";
@@ -11,6 +10,7 @@ const TaskList = ({ initialTasks }) => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [editingTask, setEditingTask] = useState(null);
   const [deletingTask, setDeletingTask] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handleAddTask = (newTask) => {
     dispatch({
@@ -43,15 +43,30 @@ const TaskList = ({ initialTasks }) => {
     });
   };
 
+  const filteredTasks = useMemo(() => {
+    return tasks.filter((task) =>
+      task.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }, [tasks, searchQuery]);
+
   return (
     <div>
-      <div className="add-task-button-container">
-        <button
-          className="btn btn-primary add-task-button"
-          onClick={() => setIsAddModalOpen(true)}
-        >
-          + Add Task
-        </button>
+      <div className="task-list-header">
+        <input
+          type="text"
+          placeholder="Search tasks..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="search-input"
+        />
+        <div className="add-task-button">
+          <button
+            className="btn btn-primary add-task-button"
+            onClick={() => setIsAddModalOpen(true)}
+          >
+            + Add Task
+          </button>
+        </div>
       </div>
 
       <Modal
@@ -107,7 +122,7 @@ const TaskList = ({ initialTasks }) => {
       </Modal>
 
       <div className="task-list">
-        {tasks.map((task) => (
+        {filteredTasks.map((task) => (
           <TaskItem
             key={task.id}
             task={task}

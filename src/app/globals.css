@@ -79,12 +79,6 @@ h1 {
   color: #333;
 }
 
-.add-task-button-container {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 20px;
-}
-
 .add-task-button {
   font-size: 1.1em;
   padding: 10px 20px;
@@ -231,5 +225,44 @@ textarea {
 
   .button-group {
     flex-direction: column;
+  }
+}
+
+.task-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.search-input {
+  width: 50%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1em;
+}
+
+.add-task-button {
+  font-size: 1.1em;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+@media (max-width: 600px) {
+  .task-list-header {
+    flex-direction: column;
+  }
+
+  .search-input {
+    margin-bottom: 10px;
+    width: 100%;
+  }
+
+  .add-task-button {
+    width: 100%;
+    justify-content: center;
   }
 }
